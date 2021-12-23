@@ -1,0 +1,16 @@
+{
+  "name": "swivu-server",
+  "description": "",
+  "version": "0.1.0",
+  "author": {
+    "name": "James Echmalian",
+    "url": "https://ech.net",
+    "email": "ech@ech.net"
+  },
+  "license": "commercial",
+  "homepage": "./",
+  "dependencies": {
+    "express": "^4.0.0",
+    "nodemon": "^2.0.0"
+  }
+}

@@ -9,8 +9,17 @@
   },
   "license": "commercial",
   "homepage": "./",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/EchNet/swivu-server.git"
+  },
   "dependencies": {
     "express": "^4.0.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.0.0"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.0"
   }
 }

@@ -1,0 +1,9 @@
+Django>=4
+django-admin-autocomplete-filter
+django-extensions
+django-filter
+djangorestframework
+djangorestframework-csv
+djangorestframework-jwt
+dj-database-url
+yapf

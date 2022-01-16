@@ -2,8 +2,36 @@
 
 Swivu server.
 
-Bryntum sync protocol adapter built on NodeJS / Express.
+Includes Bryntum sync protocol support.
 
-`make devserver` Start Express dev server, listening on port 4000.
 
-Postgres - createdb swivu-server
+## Getting Started
+
+Create a virtual environment
+
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Create postgres database.
+
+```
+createdb swivu-server
+```
+
+## Dev
+
+Create a superuser
+
+```
+python manage.py createsuperuser
+```
+
+(Provide the information prompted for.)
+
+Run server (also installs required modules and runs migrations, as needed)
+
+```
+make run
+```

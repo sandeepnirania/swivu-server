@@ -1,13 +1,15 @@
-# Node/ReactJS
-.cache/
-dist/
-node_modules/
-coverage
-stats.json
-npm-debug.log
+# Python/Django
+__pycache__/
+*.py[cod]
+venv/
+static/
+media/
+.env
+dump.rdb
+requirements.flag
+db.sqlite3
 
 # Misc.
 .DS_Store
-.idea
 *.swp
 devsetup

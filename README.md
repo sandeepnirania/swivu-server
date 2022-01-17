@@ -35,3 +35,14 @@ Run server (also installs required modules and runs migrations, as needed)
 ```
 make run
 ```
+
+## ERD
+
+To generate an Entity Relationship Diagram, run:
+
+```
+python manage.py graph_models -a > output.dot
+```
+
+Convert DOT to PNG using graphviz or any free online tool (for example, [https://onlineconvertfree.com/convert/dot/](https://onlineconvertfree.com/convert/dot/) )
+

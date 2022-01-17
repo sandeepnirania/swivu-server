@@ -6,4 +6,5 @@ djangorestframework
 djangorestframework-csv
 djangorestframework-jwt
 dj-database-url
+graphviz
 yapf

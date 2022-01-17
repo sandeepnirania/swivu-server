@@ -8,7 +8,7 @@ from events.models import Event
 
 
 class BoardSyncTestCase(TestCase):
-  fixtures = ["seed.json"]
+  fixtures = ["test.json"]
 
   def test_initial_objects_counts(self):
     self.assertEquals(Board.objects.count(), 1)
@@ -16,44 +16,39 @@ class BoardSyncTestCase(TestCase):
     self.assertEquals(Task.objects.count(), 3)
     self.assertEquals(Event.objects.count(), 10)
 
-  def test_process_sync_0_error(self):
-    with self.assertRaises(ValueError) as context:
-      BryntumSyncService()
-    self.assertEquals(context.exception.args[0], "Error: board or board_id required")
-
   def test_process_sync_1_error(self):
-    service = BryntumSyncService(board=Board.objects.get(pk=1))
+    service = BryntumSyncService(Board.objects.get(pk=1))
     with self.assertRaises(ValueError) as context:
       service.process_sync({})
     self.assertEquals(context.exception.args[0], "Error: missing type")
 
   def test_process_sync_2_error(self):
-    service = BryntumSyncService(board=Board.objects.get(pk=1))
+    service = BryntumSyncService(Board.objects.get(pk=1))
     with self.assertRaises(ValueError) as context:
       service.process_sync({"type": "toop"})
     self.assertEquals(context.exception.args[0], "Error: invalid type toop")
 
   def test_process_sync_3_error(self):
-    service = BryntumSyncService(board=Board.objects.get(pk=1))
+    service = BryntumSyncService(Board.objects.get(pk=1))
     with self.assertRaises(ValueError) as context:
       service.process_sync({"type": "sync"})
     self.assertEquals(context.exception.args[0], "Error: missing requestId")
 
   def test_process_sync_3_error(self):
-    service = BryntumSyncService(board=Board.objects.get(pk=1))
+    service = BryntumSyncService(Board.objects.get(pk=1))
     with self.assertRaises(ValueError) as context:
       service.process_sync({"type": "sync", "requestId": "NaN"})
     self.assertEquals(context.exception.args[0], "Error: invalid requestId NaN")
 
   def test_process_sync_empty(self):
-    service = BryntumSyncService(board=Board.objects.get(pk=1))
+    service = BryntumSyncService(Board.objects.get(pk=1))
     result = service.process_sync({"type": "sync", "requestId": 37})
     self.assertTrue(result)
     self.assertEquals(result["success"], True)
     self.assertEquals(result["requestId"], 37)
 
   def test_process_sync_added(self):
-    service = BryntumSyncService(board=Board.objects.get(pk=1))
+    service = BryntumSyncService(Board.objects.get(pk=1))
     result = service.process_sync({
         "type": "sync",
         "requestId": 38,
@@ -82,7 +77,7 @@ class BoardSyncTestCase(TestCase):
 
   def test_process_sync_removed(self):
     prior_count = Event.objects.count()
-    service = BryntumSyncService(board=Board.objects.get(pk=1))
+    service = BryntumSyncService(Board.objects.get(pk=1))
     result = service.process_sync({
         "type": "sync",
         "requestId": 38,
@@ -102,7 +97,7 @@ class BoardSyncTestCase(TestCase):
 
   def test_process_sync_updated(self):
     prior_count = Event.objects.count()
-    service = BryntumSyncService(board=Board.objects.get(pk=1))
+    service = BryntumSyncService(Board.objects.get(pk=1))
     result = service.process_sync({
         "type": "sync",
         "requestId": 40,

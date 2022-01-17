@@ -1,21 +1,27 @@
 import math
 
-from boards.models import Board
 from events.models import Event
 from resources.models import Resource
 from revisions.models import Revision
 from tasks.models import Task
 
 
+class BoardLoadService:
+
+  def __init__(self, board):
+    self.board = board
+
+  def load_all_data(self):
+    resources = [r.to_json() for r in Resources.objects.filter(board=self.board)]
+    events = [e.to_json() for e in Events.objects.filter(board=self.board)]
+    tasks = [t.to_json() for t in Tasks.objects.filter(board=self.board)]
+    return {"resources": resources, "events": events, "tasks": tasks}
+
+
 class BryntumSyncService:
 
-  def __init__(self, *args, **kwargs):
-    if kwargs.get("board"):
-      self.board = kwargs["board"]
-    elif kwargs.get("board_id"):
-      self.board = Board.objects.get(id=kwargs["board_id"])
-    else:
-      raise ValueError("Error: board or board_id required")
+  def __init__(self, board):
+    self.board = board
 
   def process_sync(self, sync_data):
     type = sync_data.get("type")

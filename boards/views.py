@@ -1,23 +1,33 @@
+import json
 import logging
 
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.utils import timezone
-from django.views.generic import View
+from rest_framework import views
+from rest_framework.response import Response
 
 from .models import Board
+from .services import BoardLoadService, BryntumSyncService
 
 logger = logging.getLogger(__name__)
 
 
-class BoardSyncView(View):
+class BoardActionView(views.APIView):
 
-    def post(self, request, *args, **kwargs):
-        board_id = self.kwargs.get("board_id")
-        board = get_object_or_404(Board.objects.filter(__user), )
+  def get(self, request, *args, **kwargs):
+    board = self._get_board_and_check_permissions()
+    service = BoardLoadService(board)
+    response_data = service.load_all_data()
+    return Response(response_data)
 
-        payload = dict([(k, v) for k, v in request.data.items()])
+  def post(self, request, *args, **kwargs):
+    board = self._get_board_and_check_permissions()
+    service = BryntumSyncService(board)
+    sync_data = json.loads(request.body.decode("utf-8"))
+    response_data = service.process_sync(sync_data)
+    return Response(response_data)
 
-        logger.info(f"run_event_ingest {long_id} {headers} {payload}")
-        run_event_ingest.delay(long_id, payload=payload, headers=headers)
-        return HttpResponse()
+  def _get_board_and_check_permissions(self):
+    slug = self.kwargs.get("slug")
+    board = get_object_or_404(Board.objects.all(), slug=slug)
+    # TODO: check permissions
+    return board

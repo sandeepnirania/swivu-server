@@ -12,9 +12,9 @@ class BoardLoadService:
     self.board = board
 
   def load_all_data(self):
-    resources = [r.to_json() for r in Resource.objects.filter(board=self.board)]
-    events = [e.to_json() for e in Event.objects.filter(board=self.board)]
-    tasks = [t.to_json() for t in Task.objects.filter(board=self.board)]
+    resources = {"rows": [r.to_json() for r in Resource.objects.filter(board=self.board)]}
+    events = {"rows": [e.to_json() for e in Event.objects.filter(board=self.board)]}
+    tasks = {"rows": [t.to_json() for t in Task.objects.filter(board=self.board)]}
     return {"resources": resources, "events": events, "tasks": tasks}
 
 

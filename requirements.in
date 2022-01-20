@@ -1,5 +1,6 @@
 Django>=4
 django-admin-autocomplete-filter
+django-cors-headers
 django-extensions
 django-filter
 djangorestframework

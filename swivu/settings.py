@@ -142,4 +142,5 @@ AUTHENTICATION_BACKENDS = [
 CORS_ALLOWED_ORIGINS = [
     "https://app.swivu.com",
     "http://localhost:3000",
+    "http://localhost:1234",
 ]

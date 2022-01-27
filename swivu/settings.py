@@ -26,7 +26,16 @@ SECRET_KEY = 'django-insecure-8h6y89l&6ou8luznd#+^(45xhoo2*e0n0@4e)o-gk3t12$s2en
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'api.swivu.com',
+]
+
+# CORS
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = ('http://localhost:1234', )
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -137,10 +146,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
     'graphql_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
-]
-
-CORS_ALLOWED_ORIGINS = [
-    "https://app.swivu.com",
-    "http://localhost:3000",
-    "http://localhost:1234",
 ]

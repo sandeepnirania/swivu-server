@@ -1,9 +1,11 @@
 import math
 
-from events.models import Event
-from resources.models import Resource
+from .models import Board
+from .serializers import BoardSerializer
+from events.serializers import EventSerializer
+from resources.serializers import ResourceSerializer
 from revisions.models import Revision
-from tasks.models import Task
+from tasks.serializers import TaskSerializer
 
 
 class BoardLoadService:
@@ -12,10 +14,17 @@ class BoardLoadService:
     self.board = board
 
   def load_all_data(self):
-    resources = {"rows": [r.to_json() for r in Resource.objects.filter(board=self.board)]}
-    events = {"rows": [e.to_json() for e in Event.objects.filter(board=self.board)]}
-    tasks = {"rows": [t.to_json() for t in Task.objects.filter(board=self.board)]}
-    return {"resources": resources, "events": events, "tasks": tasks}
+    data = BoardSerializer(self.board).data
+    for Serializer in (ResourceSerializer, TaskSerializer, EventSerializer):
+      Model = Serializer.Meta.model
+      store_name = Model._meta.verbose_name + "s"
+      data[store_name] = {
+          "rows": [Serializer(obj).data for obj in Model.objects.filter(board=self.board)]
+      }
+    return data
+
+
+PHANTOM_ID_KEY = "$PhantomId"
 
 
 class BryntumSyncService:
@@ -40,23 +49,39 @@ class BryntumSyncService:
       raise ValueError(f"Error: invalid requestId {request_id}")
     request_id = int(request_id)
 
+    new_models = {}
+
+    def unphantom_ids(prop_dict):
+      for key, value in prop_dict.items():
+        if key.endswith("_id") and value in new_models:
+          prop_dict[key] = new_models[value].id
+
     all_results = {}
-    for Model in (Event, Resource, Task):
+    # Create new Resources and Tasks before Events that refer to them.
+    for Serializer in (ResourceSerializer, TaskSerializer, EventSerializer):
+      Model = Serializer.Meta.model
       store_name = Model._meta.verbose_name + "s"
       store_sync_data = sync_data.get(store_name, {})
       store_results = {}
       for op in ("added", "updated", "removed"):
         for props in store_sync_data.get(op, []):
+          props = props.copy()
           if op == "added":
+            phantom_id = props.pop("$PhantomId")
+            unphantom_ids(props)
             model = Model.objects.create(board=self.board, **props)
-            result = model.to_json()
+            result = Serializer(model).data.copy()
+            if phantom_id:
+              new_models[phantom_id] = model
+              result[PHANTOM_ID_KEY] = phantom_id
             result_key = "rows"
           else:
-            id = props.get("id")
+            id = props.pop("id")
+            unphantom_ids(props)
             q = Model.objects.filter(board=self.board, id=id)
             if op == "updated":
               q.update(**props)
-              result = q.get().to_json()
+              result = Serializer(q.get()).data
               result_key = "rows"
             else:
               q.delete()

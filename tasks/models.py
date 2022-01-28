@@ -12,6 +12,3 @@ class Task(BoardScopedModelMixin):
   display_name = models.TextField(blank=False, null=False)
 
   description = models.TextField(blank=True, null=True)
-
-  def to_json(self):
-    return {key: getattr(self, key) for key in ("id", "display_name", "description")}

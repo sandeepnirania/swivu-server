@@ -14,6 +14,7 @@ class ResourceType():
       (EQUIPMENT, "Equipment"),
       (VEHICLE, "Vehicle"),
   )
+  DEFAULT = PERSON
 
 
 class Resource(BoardScopedModelMixin):
@@ -23,9 +24,10 @@ class Resource(BoardScopedModelMixin):
 
   # A resource may be a person, a piece of equipment, or a vehicle.
   type = models.PositiveIntegerField(
-      choices=ResourceType.CHOICES,
-      null=False,
       blank=False,
+      choices=ResourceType.CHOICES,
+      default=ResourceType.DEFAULT,
+      null=False,
       verbose_name=_("resource type"),
   )
 
@@ -68,10 +70,3 @@ class Resource(BoardScopedModelMixin):
       on_delete=models.SET_NULL,
       verbose_name=_("user"),
   )
-
-  # TODO: this is what serializers are for.
-  def to_json(self):
-    return {
-        key: getattr(self, key)
-        for key in ("id", "type", "image_url", "display_name", "description", "user_id")
-    }

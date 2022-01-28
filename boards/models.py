@@ -7,6 +7,9 @@ class Board(models.Model):
   # A board is the parent of collections of resources and tasks, and of the events that link
   # elements of the other two.
 
+  class Meta:
+    verbose_name = "board"
+
   # Human-readable name for this board.
   display_name = models.TextField(blank=False, null=False)
 

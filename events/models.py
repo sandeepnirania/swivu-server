@@ -13,24 +13,10 @@ class Event(BoardScopedModelMixin):
 
   start_time = models.DateTimeField(blank=False, null=False, db_index=True)
 
-  duration_hours = models.PositiveIntegerField(blank=False, null=False, default=24)
-
-  resource = models.ForeignKey(to="resources.Resource",
-                               blank=False,
-                               null=False,
-                               db_index=True,
-                               on_delete=models.CASCADE)
+  end_time = models.DateTimeField(blank=False, null=False, db_index=False)
 
   task = models.ForeignKey(to="tasks.Task",
                            blank=False,
                            null=False,
                            db_index=True,
                            on_delete=models.CASCADE)
-
-  def to_json(self):
-    json = {"start_time": self.start_time.strftime("Y-m-d H:M")}
-    json.update({
-        key: getattr(self, key)
-        for key in ("id", "is_plan", "duration_hours", "resource_id", "task_id")
-    })
-    return json

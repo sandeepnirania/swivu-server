@@ -9,7 +9,6 @@ class EventAdmin(admin.ModelAdmin):
       "id",
       "is_plan",
       "start_time",
-      "duration_hours",
-      "resource",
+      "end_time",
       "task",
   )

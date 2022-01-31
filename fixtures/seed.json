@@ -88,10 +88,9 @@
     "pk": 1,
     "fields": {
       "board_id": 1,
-      "resource_id": 1,
       "task_id": 1,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -99,10 +98,9 @@
     "pk": 2,
     "fields": {
       "board_id": 1,
-      "resource_id": 2,
       "task_id": 1,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -110,10 +108,9 @@
     "pk": 3,
     "fields": {
       "board_id": 1,
-      "resource_id": 2,
       "task_id": 1,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -121,10 +118,9 @@
     "pk": 4,
     "fields": {
       "board_id": 1,
-      "resource_id": 2,
       "task_id": 1,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -132,10 +128,9 @@
     "pk": 5,
     "fields": {
       "board_id": 1,
-      "resource_id": 2,
       "task_id": 1,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -143,10 +138,9 @@
     "pk": 6,
     "fields": {
       "board_id": 1,
-      "resource_id": 2,
       "task_id": 1,
       "start_time": "2022-03-02T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -154,10 +148,9 @@
     "pk": 7,
     "fields": {
       "board_id": 1,
-      "resource_id": 3,
       "task_id": 2,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -165,10 +158,9 @@
     "pk": 8,
     "fields": {
       "board_id": 1,
-      "resource_id": 4,
       "task_id": 2,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -176,10 +168,9 @@
     "pk": 9,
     "fields": {
       "board_id": 1,
-      "resource_id": 4,
       "task_id": 3,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
     }
   },
   {
@@ -187,10 +178,99 @@
     "pk": 10,
     "fields": {
       "board_id": 1,
-      "resource_id": 5,
       "task_id": 3,
       "start_time": "2022-03-01T00:00:00+00:00",
-      "duration_hours": 8
+      "end_time": "2022-03-02T00:00:00+00:00"
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 1,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 1,
+      "event_id": 1
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 2,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 2,
+      "event_id": 2
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 3,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 2,
+      "event_id": 3
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 4,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 2,
+      "event_id": 4
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 5,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 2,
+      "event_id": 5
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 6,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 2,
+      "event_id": 6
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 7,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 3,
+      "event_id": 7
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 8,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 4,
+      "event_id": 8
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 9,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 4,
+      "event_id": 9
+    }
+  },
+  {
+    "model": "assignments.Assignment",
+    "pk": 10,
+    "fields": {
+      "board_id": 1,
+      "resource_id": 5,
+      "event_id": 10
     }
   }
 ]

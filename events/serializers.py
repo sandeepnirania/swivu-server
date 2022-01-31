@@ -1,17 +1,17 @@
-from rest_framework import serializers as framework_serializers
+from rest_framework import serializers
 
 from . import models
 
 
-class EventSerializer(framework_serializers.ModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = models.Event
     fields = (
         "id",
-        "is_plan",
+        "board",
+        "task",
         "start_time",
-        "duration_hours",
-        "resource_id",
-        "task_id",
+        "end_time",
     )
+    extra_kwargs = {"board": {"write_only": True}}

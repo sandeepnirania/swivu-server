@@ -53,5 +53,5 @@ class BoardScopedModelMixin(models.Model):
       on_delete=models.CASCADE,
       related_name="%(app_label)s_%(class)ss",
       to=Board,
-      verbose_name=_("business"),
+      verbose_name=_("board"),
   )

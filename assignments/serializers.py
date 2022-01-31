@@ -3,14 +3,14 @@ from rest_framework import serializers as framework_serializers
 from . import models
 
 
-class TaskSerializer(framework_serializers.ModelSerializer):
+class AssignmentSerializer(framework_serializers.ModelSerializer):
 
   class Meta:
-    model = models.Task
+    model = models.Assignment
     fields = (
         "id",
         "board",
-        "display_name",
-        "description",
+        "resource",
+        "event",
     )
     extra_kwargs = {"board": {"write_only": True}}

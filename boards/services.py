@@ -2,6 +2,7 @@ import math
 
 from .models import Board
 from .serializers import BoardSerializer
+from assignments.serializers import AssignmentSerializer
 from events.serializers import EventSerializer
 from resources.serializers import ResourceSerializer
 from revisions.models import Revision
@@ -15,7 +16,12 @@ class BoardLoadService:
 
   def load_all_data(self):
     data = BoardSerializer(self.board).data
-    for Serializer in (ResourceSerializer, TaskSerializer, EventSerializer):
+    for Serializer in (
+        ResourceSerializer,
+        TaskSerializer,
+        EventSerializer,
+        AssignmentSerializer,
+    ):
       Model = Serializer.Meta.model
       store_name = Model._meta.verbose_name + "s"
       data[store_name] = {
@@ -53,12 +59,18 @@ class BryntumSyncService:
 
     def unphantom_ids(prop_dict):
       for key, value in prop_dict.items():
-        if key.endswith("_id") and value in new_models:
+        if value in new_models:
           prop_dict[key] = new_models[value].id
 
     all_results = {}
-    # Create new Resources and Tasks before Events that refer to them.
-    for Serializer in (ResourceSerializer, TaskSerializer, EventSerializer):
+    # Create new Tasks before the Events that refer to them.
+    # Create new Events and Resources before the Assignments that refer to them.
+    for Serializer in (
+        ResourceSerializer,
+        TaskSerializer,
+        EventSerializer,
+        AssignmentSerializer,
+    ):
       Model = Serializer.Meta.model
       store_name = Model._meta.verbose_name + "s"
       store_sync_data = sync_data.get(store_name, {})
@@ -67,10 +79,13 @@ class BryntumSyncService:
         for props in store_sync_data.get(op, []):
           props = props.copy()
           if op == "added":
-            phantom_id = props.pop("$PhantomId")
+            phantom_id = props.pop("$PhantomId", None)
             unphantom_ids(props)
-            model = Model.objects.create(board=self.board, **props)
-            result = Serializer(model).data.copy()
+            props["board"] = self.board.id
+            serializer = Serializer(data=props)
+            serializer.is_valid(raise_exception=True)
+            model = serializer.save()
+            result = serializer.data.copy()
             if phantom_id:
               new_models[phantom_id] = model
               result[PHANTOM_ID_KEY] = phantom_id

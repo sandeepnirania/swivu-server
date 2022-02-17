@@ -25,6 +25,3 @@ test: build
 run: build
 	$(PYTHON) ./manage.py migrate
 	$(PYTHON) ./manage.py runserver
-
-graphiql:
-	open http://localhost:8000/graphql/

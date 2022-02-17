@@ -82,7 +82,7 @@ class BoardSyncTestCase(TestCase):
         "requestId": 38,
         "events": {
             "added": [{
-                "$PhantomId": "new_event_1",
+                "$PhantomId": "$p_new_event_1",
                 "start_time": "2020-03-01",
                 "end_time": "2020-03-02",
                 "task": 1
@@ -90,7 +90,7 @@ class BoardSyncTestCase(TestCase):
         },
         "assignments": {
             "added": [{
-                "event": "new_event_1",
+                "event": "$p_new_event_1",
                 "resource": 1
             }]
         }

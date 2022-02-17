@@ -8,6 +8,7 @@ djangorestframework-csv
 djangorestframework-jwt
 dj-database-url
 graphviz
+gunicorn
 psycopg2-binary
 python-decouple
 yapf

@@ -29,7 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     'api.swivu.com',
-    '*.herokuapp.com',
+    'swivu-server-staging.herokuapp.com',
+    'swivu-server.herokuapp.com',
 ]
 
 # CORS

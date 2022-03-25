@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-8h6y89l&6ou8luznd#+^(45xhoo2*e0n0@4e)o-gk3t12$s2en
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'whispering-oasis-42078.herokuapp.com'
     'localhost',
     'api.swivu.com',
     'swivu-server-staging.herokuapp.com',

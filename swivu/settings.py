@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     'api.swivu.com',
     'swivu-server-staging.herokuapp.com',
     'swivu-server.herokuapp.com',
+    '*',
 ]
 
 # CORS
